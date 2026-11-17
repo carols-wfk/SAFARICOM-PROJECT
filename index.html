@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Safaricom SME Hub</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="auth">
+  <div class="acard">
+    <h1>Safaricom <span>SME Hub</span></h1>
+    <p>Manage your M-Pesa sales, invoices and reports.</p>
+
+    <div class="atabs">
+      <button type="button" class="on" id="tabIn">Sign in</button>
+      <button type="button" id="tabUp">Create account</button>
+    </div>
+
+    <form id="inForm">
+      <label>Email <input id="ie" type="email" placeholder="you@example.com"></label>
+      <label>Password <input id="ipw" type="password"></label>
+      <button class="btn">Sign in</button>
+    </form>
+
+    <form id="upForm" hidden>
+      <label>Business name <input id="ub" placeholder="e.g. Mama Njeri Groceries"></label>
+      <label>Email <input id="ue" type="email" placeholder="you@example.com"></label>
+      <label>Password (at least 6 characters) <input id="upw" type="password"></label>
+      <label>Confirm password <input id="ucf" type="password"></label>
+      <button class="btn">Create account</button>
+    </form>
+
+    <p class="msg" id="aMsg"></p>
+    <div class="hint">Demo account: <b>demo@safaricom.demo</b> with password <b>Demo1234</b></div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" hidden>
+  <header>
+    <h1>Safaricom <span>SME Hub</span></h1>
+    <div class="who">
+      <div class="acct">
+        <strong id="bizName">Mama Njeri Groceries</strong>
+        <small id="bizPay">Till 523419</small>
+      </div>
+      <button class="out" id="logout">Sign out</button>
+    </div>
+  </header>
+
+  <nav id="tabs">
+    <button class="on" data-t="dash">Dashboard</button>
+    <button data-t="txn">Transactions</button>
+    <button data-t="inv">Invoices</button>
+    <button data-t="rep">Reports</button>
+    <button data-t="sup">Support</button>
+  </nav>
+
+  <main>
+
+    <!-- Dashboard -->
+    <section id="dash" class="on">
+      <h2>Business overview</h2>
+      <div class="stats" id="stats"></div>
+
+      <div class="box">
+        <h3>Sales, last 7 days</h3>
+        <div class="chart" id="chart"></div>
+      </div>
+
+      <div class="box">
+        <h3>Link your Till or Paybill</h3>
+        <form id="linkForm">
+          <label>Business name <input id="lbName"></label>
+          <label>Account type
+            <select id="lbType"><option>Till</option><option>Paybill</option></select>
+          </label>
+          <label>Number (5 to 7 digits) <input id="lbNum" maxlength="7"></label>
+          <button class="btn">Save</button>
+        </form>
+        <p class="msg" id="linkMsg"></p>
+      </div>
+    </section>
+
+    <!-- Transactions -->
+    <section id="txn">
+      <h2>M-Pesa transactions</h2>
+      <div class="box bar">
+        <label>Search by name or code <input id="q" placeholder="Type to filter"></label>
+        <button class="btn" id="simPay">Simulate incoming payment</button>
+      </div>
+      <div class="box tw">
+        <table>
+          <thead><tr><th>Date</th><th>Code</th><th>Customer</th><th>Phone</th><th>Amount</th></tr></thead>
+          <tbody id="txnBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Invoices -->
+    <section id="inv">
+      <h2>Create an invoice</h2>
+      <div class="box">
+        <form id="invForm">
+          <label>Customer name <input id="ic"></label>
+          <label>Phone <input id="ip" placeholder="0712345678"></label>
+          <label>Amount (KSh) <input id="ia" type="number"></label>
+          <label>Due date <input id="id" type="date"></label>
+          <button class="btn">Create invoice</button>
+        </form>
+        <p class="msg" id="invMsg"></p>
+      </div>
+
+      <h2>Invoices</h2>
+      <div class="box tw">
+        <table>
+          <thead><tr><th>No.</th><th>Customer</th><th>Amount</th><th>Due</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="invBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Reports -->
+    <section id="rep">
+      <h2>Sales report</h2>
+      <div class="box bar">
+        <p id="repSum"></p>
+        <button class="btn" id="csv">Download CSV</button>
+      </div>
+      <div class="box tw">
+        <table>
+          <thead><tr><th>Day</th><th>Transactions</th><th>Total</th></tr></thead>
+          <tbody id="repBody"></tbody>
+        </table>
+      </div>
+      <div class="box">
+        <h3>Top customers</h3>
+        <ol id="top"></ol>
+      </div>
+    </section>
+
+    <!-- Support -->
+    <section id="sup">
+      <h2>Contact support</h2>
+      <div class="box">
+        <form id="supForm">
+          <label>Topic
+            <select id="st">
+              <option>M-Pesa payment</option>
+              <option>Till or Paybill</option>
+              <option>Invoices</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>Subject <input id="ss"></label>
+          <label>Message <textarea id="sm" rows="3"></textarea></label>
+          <button class="btn">Submit ticket</button>
+        </form>
+        <p class="msg" id="supMsg"></p>
+      </div>
+
+      <h2>Your tickets</h2>
+      <div class="box tw">
+        <table>
+          <thead><tr><th>Ticket</th><th>Topic</th><th>Subject</th><th>Status</th><th></th></tr></thead>
+          <tbody id="supBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="toast"></div>
+  <footer>Demo prototype. Data is simulated and resets when you reload the page.</footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
